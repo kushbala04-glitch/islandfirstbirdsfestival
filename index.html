@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1st Island Bird Festival</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #1b5e20;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2e7d32, #1b5e20);
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(27, 94, 32, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 0;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            background: linear-gradient(to right, #388e3c, #2e7d32);
+            padding: 0;
+            box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            border-bottom: 3px solid #ffd54f;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        /* Dropdown container */
+        .dropdown {
+            position: relative;
+        }
+        
+        /* Dropdown toggle */
+        .dropdown-toggle {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            text-align: left;
+            width: 100%;
+        }
+        
+        /* Dropdown menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+            min-width: 250px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 0 0 8px 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border-top: 3px solid #ffd54f;
+            overflow: hidden;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            padding-left: 25px;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Regular nav links */
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+        
+        .nav-link::before,
+        .dropdown-toggle::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #ffd54f;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::before,
+        .dropdown-toggle:hover::before {
+            width: 80%;
+        }
+        
+        .nav-link.active::before,
+        .dropdown.active .dropdown-toggle::before {
+            width: 100%;
+        }
+        
+        .dropdown.active .dropdown-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+        
+        /* Arrow indicator for dropdown */
+        .dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.8em;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: rotate(180deg);
+        }
+        
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        /* Main container */
+        .contener {
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto 3rem;
+            background: white;
+            box-shadow: 0 15px 40px rgba(27, 94, 32, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        /* Vertical gallery layout */
+        .vertical-gallery {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Each image container with animations */
+        .image-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Animation when image comes into view */
+        .image-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* All images cover the container width completely */
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Parallax effect on scroll */
+        .image-container.visible img {
+            transform: scale(1);
+        }
+        
+        .image-container:not(.visible) img {
+            transform: scale(1.05);
+        }
+        
+        /* Special buttons for first image */
+        .first-image-buttons {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 0 40px;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+        }
+        
+        .image-container.visible .first-image-buttons {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .festival-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 280px;
+            justify-content: center;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        
+        .festival-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+            background: linear-gradient(135deg, #ff7b7b, #ff6b6b);
+        }
+        
+        .festival-btn:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .festival-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .festival-btn:hover::before {
+            left: 100%;
+        }
+        
+        .festival-btn.details-btn {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+        }
+        
+        .festival-btn.details-btn:hover {
+            background: linear-gradient(135deg, #5eddd4, #4ecdc4);
+            box-shadow: 0 15px 40px rgba(78, 205, 196, 0.6);
+        }
+        
+        .festival-btn.apply-btn {
+            background: linear-gradient(135deg, #ffd166, #ffb347);
+            box-shadow: 0 10px 30px rgba(255, 209, 102, 0.4);
+        }
+        
+        .festival-btn.apply-btn:hover {
+            background: linear-gradient(135deg, #ffe176, #ffd166);
+            box-shadow: 0 15px 40px rgba(255, 209, 102, 0.6);
+        }
+        
+        .btn-icon {
+            font-size: 1.8rem;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+        }
+        
+        .details-btn .btn-icon {
+            font-size: 2rem;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        /* Special anchor tag for image 13 */
+        .image-link {
+            position: relative;
+            width: 100%;
+            display: block;
+        }
+        
+        .image-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(27, 94, 32, 0);
+            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .image-link:hover::after {
+            background: rgba(27, 94, 32, 0.1);
+        }
+        
+        .image-link::before {
+            content: 'click me for more details';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(46, 125, 50, 0.95);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            white-space: nowrap;
+            border: 3px solid white;
+        }
+        
+        .image-link:hover::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        /* Clickable hotspots for Image 4 (Things to Do) */
+        .hotspot-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .hotspot {
+            position: absolute;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            width: 35px;
+            height: 35px;
+            background: rgba(46, 125, 50, 0.7);
+            border: 3px solid white;
+        }
+        
+        .hotspot:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(46, 125, 50, 0.5);
+            background: rgba(46, 125, 50, 0.9);
+        }
+        
+        .hotspot::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(46, 125, 50, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .hotspot-label {
+            position: absolute;
+            background: rgba(46, 125, 50, 0.95);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 11;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid white;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+        }
+        
+        .hotspot:hover .hotspot-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        /* Default hotspot positions for Image 4 - adjust these based on your actual image */
+        .hotspot-bird-watching { top: 25%; left: 15%; }
+        .hotspot-national-park { top: 30%; left: 35%; }
+        .hotspot-nature-walks { top: 35%; left: 55%; }
+        .hotspot-boating { top: 40%; left: 75%; }
+        .hotspot-technical-session { top: 65%; left: 20%; }
+        .hotspot-astro-photography { top: 70%; left: 50%; }
+        .hotspot-heritage-walk { top: 75%; left: 80%; }
+        
+        /* Progress indicator with animation */
+        .progress-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 98;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 10px;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 3px solid #2e7d32;
+            transition: transform 0.3s ease;
+        }
+        
+        .progress-indicator:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        .progress-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(46, 125, 50, 0.3);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid white;
+            position: relative;
+        }
+        
+        .progress-dot.active {
+            background: #2e7d32;
+            transform: scale(1.5);
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
+        }
+        
+        .progress-dot:hover {
+            background: #1b5e20;
+            transform: scale(1.3);
+        }
+        
+        /* Pulse animation for active dot */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(46, 125, 50, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
+            }
+        }
+        
+        .progress-dot.active::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(27, 94, 32, 0.3);
+            border-top: 5px solid #2e7d32;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Scroll hint animation */
+        .scroll-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #2e7d32;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            z-index: 99;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #2e7d32;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .contener {
+                max-width: 95vw;
+                border-radius: 10px;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            .first-image-buttons {
+                padding: 0 30px;
+                gap: 20px;
+            }
+            
+            .festival-btn {
+                min-width: 240px;
+                padding: 18px 35px;
+                font-size: 1.2rem;
+            }
+            
+            .hotspot {
+                width: 30px;
+                height: 30px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 2px;
+            }
+            
+            .nav-link,
+            .dropdown-toggle {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .hotspot {
+                width: 25px;
+                height: 25px;
+            }
+            
+            .hotspot-label {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+                flex-direction: column;
+                padding: 10px 0;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-link,
+            .dropdown-toggle {
+                padding: 15px 20px;
+                text-align: left;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-link:hover,
+            .dropdown-toggle:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateX(5px);
+            }
+            
+            .nav-link::before,
+            .dropdown-toggle::before {
+                display: none;
+            }
+            
+            /* Mobile dropdown menu */
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background: rgba(0, 0, 0, 0.1);
+                min-width: auto;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                max-height: 300px;
+            }
+            
+            .dropdown-toggle::after {
+                float: right;
+                margin-top: 5px;
+                transition: transform 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-toggle::after {
+                transform: rotate(180deg);
+            }
+            
+            .progress-indicator {
+                right: 15px;
+                padding: 12px 8px;
+            }
+            
+            .progress-dot {
+                width: 12px;
+                height: 12px;
+            }
+            
+            .scroll-hint {
+                font-size: 1.2rem;
+                bottom: 20px;
+            }
+            
+            .image-link::before {
+                font-size: 1rem;
+                padding: 12px 20px;
+                white-space: normal;
+                max-width: 90%;
+            }
+            
+            .first-image-buttons {
+                padding: 0 20px;
+                bottom: 40px;
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .festival-btn {
+                padding: 18px 30px;
+                font-size: 1.1rem;
+                min-width: 280px;
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .hotspot {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .hotspot-label {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            header h1 {
+                font-size: 1.7rem;
+            }
+            
+            header p {
+                font-size: 0.9rem;
+            }
+            
+            .progress-indicator {
+                right: 10px;
+            }
+            
+            .scroll-hint {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+            
+            .image-link::before {
+                font-size: 0.9rem;
+                padding: 10px 16px;
+            }
+            
+            .first-image-buttons {
+                padding: 0 15px;
+                bottom: 30px;
+            }
+            
+            .festival-btn {
+                padding: 16px 25px;
+                font-size: 1rem;
+                min-width: 250px;
+                gap: 8px;
+            }
+            
+            .btn-icon {
+                font-size: 1.5rem;
+            }
+            
+            .details-btn .btn-icon {
+                font-size: 1.7rem;
+            }
+            
+            .hotspot {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .hotspot-label {
+                font-size: 0.65rem;
+                padding: 4px 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contener {
+                border-radius: 8px;
+            }
+            
+            .progress-indicator {
+                padding: 10px 6px;
+            }
+            
+            .progress-dot {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .scroll-hint {
+                display: none;
+            }
+            
+            .image-link::before {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+                border: 2px solid white;
+            }
+            
+            .first-image-buttons {
+                padding: 0 10px;
+                bottom: 20px;
+            }
+            
+            .festival-btn {
+                padding: 14px 20px;
+                font-size: 0.9rem;
+                min-width: 220px;
+                gap: 6px;
+                letter-spacing: 0.3px;
+            }
+            
+            .btn-icon {
+                font-size: 1.3rem;
+            }
+            
+            .details-btn .btn-icon {
+                font-size: 1.5rem;
+            }
+            
+            .hotspot {
+                width: 15px;
+                height: 15px;
+            }
+            
+            .hotspot-label {
+                font-size: 0.6rem;
+                padding: 3px 6px;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #c8e6c9;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4caf50;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2e7d32;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Smooth fade-in for page load */
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        body {
+            animation: pageLoad 0.8s ease-out;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(to right, #2e7d32, #1b5e20);
+            color: white;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: pageLoad 0.8s ease-out 0.3s forwards;
+        }
+        
+        footer p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        /* Image transition effect */
+        .image-transition {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Current image highlight */
+        .image-container.current {
+            border-left: 5px solid #2e7d32;
+            border-right: 5px solid #2e7d32;
+        }
+        
+        /* Button animations */
+        @keyframes buttonGlowDetails {
+            0% {
+                box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 30px rgba(78, 205, 196, 0.6), 0 0 25px rgba(78, 205, 196, 0.5);
+            }
+            100% {
+                box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+            }
+        }
+        
+        @keyframes buttonGlowApply {
+            0% {
+                box-shadow: 0 10px 30px rgba(255, 209, 102, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 30px rgba(255, 209, 102, 0.6), 0 0 25px rgba(255, 209, 102, 0.5);
+            }
+            100% {
+                box-shadow: 0 10px 30px rgba(255, 209, 102, 0.4);
+            }
+        }
+        
+        .festival-btn.details-btn {
+            animation: buttonGlowDetails 3s infinite;
+        }
+        
+        .festival-btn.apply-btn {
+            animation: buttonGlowApply 3s infinite;
+        }
+        
+        /* Button text styling */
+        .btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.3;
+        }
+        
+        .btn-main-text {
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+        
+        .btn-sub-text {
+            font-size: 0.85em;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        
+        /* Navigation link icons */
+        .nav-icon {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>1st Island Bird Festival</h1>
+         <nav class="navbar">
+        <div class="nav-container">
+            <button class="menu-toggle" id="menuToggle">
+                ☰
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <!-- Registration Dropdown -->
+                <li class="nav-item dropdown">
+                    <button class="dropdown-toggle">
+                        <span class="nav-icon"></span>How to do registration
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="DetailsIslandBirdFestival.pdf" class="dropdown-item" target="_blank">Details of Registration</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScPowAdDLz2mtsrSVDQWwWvR9QGp56u41ay_MDYk6PBuUb9Jg/viewform?pli=1" class="dropdown-item" target="_blank">Registration Process</a>
+                        <a href="#" class="dropdown-item" data-target-image="14">Do's & Don'ts</a>
+                        <a href="#" class="dropdown-item" data-target-image="15">Inclusions & Exclusions</a>
+                    </div>
+                </li>
+                
+                <!-- Tentative Schedule -->
+                       <li class="nav-item">
+                        <a href="Pragramme.pdf" class="dropdown-item" target="_blank"><span class="nav-icon"></span>Tentative schedules</a>
+                    
+                </li>
+                
+                <!-- Things to do -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-target-image="3">
+                        <span class="nav-icon"></span>Things to do
+                    </a>
+                </li>
+
+                <!-- Gallery Dropdown -->
+                <li class="nav-item dropdown">
+                    <button class="dropdown-toggle">
+                        <span class="nav-icon"></span>Gallery
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="BirdingAreasSouthAndaman.pdf" class="dropdown-item" target="_blank">Birding areas of South Andaman Islands</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </header>
+    
+    <main class="contener">
+        <div class="vertical-gallery" id="gallery">
+            <!-- Images 1-17.jpg will be loaded here in vertical order -->
+        </div>
+    </main>
+    
+    <div class="progress-indicator" id="progressIndicator">
+        <!-- Progress dots will be added by JavaScript -->
+    </div>
+    
+    <div class="scroll-hint" id="scrollHint">
+        Scroll to explore ↓
+    </div>
+    
+    <footer>
+        <p>Island Bird Festival | Celebrating Avian Diversity | 1st Annual Event</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gallery = document.getElementById('gallery');
+            const progressIndicator = document.getElementById('progressIndicator');
+            const scrollHint = document.getElementById('scrollHint');
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            // Array of image files (1-17.jpg)
+            const imageFiles = [];
+            for (let i = 1; i <= 17; i++) {
+                imageFiles.push(`${i}.jpg`);
+            }
+            
+            let currentImageIndex = 0;
+            let imageElements = [];
+            let progressDots = [];
+            let isScrolling = false;
+            
+            // Navigation to Image Mapping - UPDATED FOR 17 IMAGES
+            const navToImageMap = {
+                // Image indices are 0-based
+                3: 3,   // Image 4 -> "Things to do" (index 3)
+                12: 12, // Image 13 -> "Tentative schedules" (index 12)
+                14: 14, // Image 15 -> "Do's & Don'ts" (index 14)
+                15: 15  // Image 16 -> "Inclusions & Exclusions" (index 15) - CHANGED FROM 16 to 15
+            };
+            
+            // Things to Do hotspots mapping - UPDATED FOR 17 IMAGES
+            const thingsToDoMapping = {
+                'bird-watching': 4,      // Image 5 (index 4)
+                'national-park': 5,      // Image 6 (index 5)
+                'nature-walks': 6,       // Image 7 (index 6)
+                'boating': 7,            // Image 8 (index 7)
+                'technical-session': 8,  // Image 9 (index 8)
+                'astro-photography': 9,  // Image 10 (index 9)
+                'heritage-walk': 10      // Image 11 (index 10)
+            };
+            
+            // Toggle mobile menu
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+                navbar.classList.remove('hide');
+            });
+            
+            // Mobile dropdown toggle
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                
+                toggle.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // Close other dropdowns
+                        dropdowns.forEach(otherDropdown => {
+                            if (otherDropdown !== dropdown) {
+                                otherDropdown.classList.remove('active');
+                            }
+                        });
+                        
+                        // Toggle current dropdown
+                        dropdown.classList.toggle('active');
+                    }
+                });
+            });
+            
+            // Close dropdowns when clicking outside (mobile)
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    if (!e.target.closest('.dropdown')) {
+                        dropdowns.forEach(dropdown => {
+                            dropdown.classList.remove('active');
+                        });
+                    }
+                }
+            });
+            
+            // Navigation click handler - for all nav items and dropdown items
+            document.querySelectorAll('.nav-link, .dropdown-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    // Handle dropdown items that have data-target-image
+                    const targetImage = this.getAttribute('data-target-image');
+                    
+                    if (targetImage) {
+                        e.preventDefault();
+                        
+                        // Close mobile menu if open
+                        navLinks.classList.remove('active');
+                        menuToggle.textContent = '☰';
+                        
+                        // Close all dropdowns on mobile
+                        if (window.innerWidth <= 768) {
+                            dropdowns.forEach(dropdown => {
+                                dropdown.classList.remove('active');
+                            });
+                        }
+                        
+                        // Show navbar
+                        navbar.classList.remove('hide');
+                        
+                        // Scroll to the target image
+                        const imageIndex = parseInt(targetImage);
+                        if (!isNaN(imageIndex) && imageIndex >= 0 && imageIndex < imageFiles.length) {
+                            scrollToImage(imageIndex, true);
+                        }
+                    }
+                });
+            });
+            
+            // Handle dropdown toggle clicks (prevent default for desktop hover)
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    // On mobile, we handle this in the mobile dropdown section above
+                    // On desktop, prevent default to allow hover behavior
+                    if (window.innerWidth > 768) {
+                        e.preventDefault();
+                    }
+                });
+            });
+            
+            // Navbar scroll behavior
+            let lastScrollTop = 0;
+            let navbar = document.querySelector('.navbar');
+            let isNavbarHidden = false;
+            
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Hide scroll hint after first scroll
+                if (scrollTop > 50) {
+                    scrollHint.style.opacity = '0';
+                    scrollHint.style.transition = 'opacity 0.5s ease';
+                }
+                
+                // Navbar behavior
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    if (!navbar.classList.contains('hide')) {
+                        navbar.classList.add('hide');
+                        isNavbarHidden = true;
+                    }
+                } else if (scrollTop < lastScrollTop) {
+                    if (navbar.classList.contains('hide')) {
+                        navbar.classList.remove('hide');
+                        isNavbarHidden = false;
+                    }
+                }
+                
+                if (scrollTop === 0) {
+                    navbar.classList.remove('hide');
+                    isNavbarHidden = false;
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+            
+            // Load images
+            imageFiles.forEach((imageSrc, index) => {
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'image-container image-transition';
+                imageContainer.id = `image-${index + 1}`;
+                
+                // Add data attribute for image number (1-based)
+                imageContainer.setAttribute('data-image-number', index + 1);
+                
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'loading';
+                loadingDiv.innerHTML = `
+                    <div class="spinner"></div>
+                    <div>Loading image ${index + 1}...</div>
+                `;
+                
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.alt = `Image ${index + 1}`;
+                img.loading = 'lazy';
+                
+                // Special handling for Image 4 (Things to Do)
+                if (index === 3) { // Image 4 (0-indexed, so index 3)
+                    // Create a wrapper div for the image
+                    const imageWrapper = document.createElement('div');
+                    imageWrapper.style.position = 'relative';
+                    
+                    // Create hotspot overlay
+                    const hotspotOverlay = document.createElement('div');
+                    hotspotOverlay.className = 'hotspot-overlay';
+                    
+                    // Add hotspots for each activity
+                    const hotspots = [
+                        { id: 'bird-watching', label: 'Bird Watching', targetImage: 4 },
+                        { id: 'national-park', label: 'National Park', targetImage: 5 },
+                        { id: 'nature-walks', label: 'Nature Walks', targetImage: 6 },
+                        { id: 'boating', label: 'Boating', targetImage: 7 },
+                        { id: 'technical-session', label: 'Technical Session', targetImage: 8 },
+                        { id: 'astro-photography', label: 'Astro-photography', targetImage: 9 },
+                        { id: 'heritage-walk', label: 'Heritage Walk', targetImage: 10 }
+                    ];
+                    
+                    hotspots.forEach(hotspot => {
+                        const hotspotEl = document.createElement('div');
+                        hotspotEl.className = `hotspot hotspot-${hotspot.id}`;
+                        hotspotEl.dataset.targetImage = hotspot.targetImage;
+                        hotspotEl.dataset.label = hotspot.label;
+                        
+                        // Create label
+                        const label = document.createElement('div');
+                        label.className = 'hotspot-label';
+                        label.textContent = hotspot.label;
+                        
+                        hotspotEl.appendChild(label);
+                        hotspotOverlay.appendChild(hotspotEl);
+                        
+                        // Add click event
+                        hotspotEl.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const targetIndex = parseInt(this.dataset.targetImage);
+                            if (!isNaN(targetIndex) && targetIndex >= 0 && targetIndex < imageFiles.length) {
+                                scrollToImage(targetIndex, true);
+                            }
+                        });
+                    });
+                    
+                    imageWrapper.appendChild(img);
+                    imageWrapper.appendChild(hotspotOverlay);
+                    imageContainer.appendChild(loadingDiv);
+                    imageContainer.appendChild(imageWrapper);
+                    
+                } else if (index === 0) {
+                    const buttonsContainer = document.createElement('div');
+                    buttonsContainer.className = 'first-image-buttons';
+                    
+                    const detailsButton = document.createElement('button');
+                    detailsButton.className = 'festival-btn details-btn';
+                    detailsButton.innerHTML = `
+                        <span class="btn-icon">📋</span>
+                        <div class="btn-text">
+                            <span class="btn-main-text">Click here for details about</span>
+                            <span class="btn-sub-text">1st Islands Bird Festival</span>
+                        </div>
+                    `;
+                    detailsButton.addEventListener('click', function() {
+                        window.open('DetailsIslandBirdFestival.pdf', '_blank');
+                    });
+                    
+                    const applyButton = document.createElement('button');
+                    applyButton.className = 'festival-btn apply-btn';
+                    applyButton.innerHTML = `
+                        <span class="btn-icon">📝</span>
+                        <div class="btn-text">
+                            <span class="btn-main-text">Click here to apply for</span>
+                            <span class="btn-sub-text">1st Islands Bird Festival</span>
+                        </div>
+                    `;
+                    applyButton.addEventListener('click', function() {
+                        window.open('https://docs.google.com/forms/d/e/1FAIpQLScPowAdDLz2mtsrSVDQWwWvR9QGp56u41ay_MDYk6PBuUb9Jg/viewform?pli=1', '_blank');
+                    });
+                    
+                    buttonsContainer.appendChild(applyButton);
+                    buttonsContainer.appendChild(detailsButton);
+                    
+                    imageContainer.appendChild(loadingDiv);
+                    imageContainer.appendChild(img);
+                    imageContainer.appendChild(buttonsContainer);
+                    
+                } else if (index === 12) { // Image 13 (0-indexed, so index 12)
+                    const anchor = document.createElement('a');
+                    anchor.href = "Pragramme.pdf";
+                    anchor.className = 'image-link';
+                    anchor.target = "_blank";
+                    anchor.rel = "noopener noreferrer";
+                    anchor.appendChild(img);
+                    
+                    imageContainer.appendChild(loadingDiv);
+                    imageContainer.appendChild(anchor);
+                } else {
+                    imageContainer.appendChild(loadingDiv);
+                    imageContainer.appendChild(img);
+                }
+                
+                gallery.appendChild(imageContainer);
+                imageElements.push(imageContainer);
+                
+                // Create progress dot
+                const progressDot = document.createElement('div');
+                progressDot.className = 'progress-dot';
+                progressDot.dataset.index = index;
+                progressDot.title = `Image ${index + 1}`;
+                
+                progressDot.addEventListener('click', function() {
+                    const targetIndex = parseInt(this.dataset.index);
+                    scrollToImage(targetIndex, true);
+                });
+                
+                progressIndicator.appendChild(progressDot);
+                progressDots.push(progressDot);
+                
+                // Load image
+                img.onload = function() {
+                    loadingDiv.style.display = 'none';
+                    setTimeout(() => {
+                        checkVisibility(imageContainer);
+                    }, index * 100);
+                };
+                
+                img.onerror = function() {
+                    loadingDiv.innerHTML = `
+                        <div style="text-align: center; padding: 30px; color: #666;">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🦜</div>
+                            <div style="font-weight: bold; margin-bottom: 10px;">Island Bird ${index + 1}</div>
+                            <div style="font-size: 0.9rem;">
+                                Image loading...
+                            </div>
+                        </div>
+                    `;
+                    console.error(`Image not found: ${imageSrc}`);
+                    
+                    if (index === 0) {
+                        const buttonsContainer = imageContainer.querySelector('.first-image-buttons');
+                        if (buttonsContainer) {
+                            buttonsContainer.style.display = 'flex';
+                        }
+                    }
+                };
+            });
+            
+            // Function to adjust hotspot positions based on actual image layout
+            function adjustHotspotPositions(imgElement) {
+                // This function can be used to adjust hotspot positions after image loads
+                // You'll need to customize this based on your actual 4.jpg layout
+                
+                // Example: Log the image dimensions
+                console.log(`Image 4 dimensions: ${imgElement.naturalWidth} x ${imgElement.naturalHeight}`);
+                
+                // You can programmatically adjust positions here if needed
+                // For example, if you know the exact coordinates of logos in your image:
+                /*
+                document.querySelector('.hotspot-bird-watching').style.left = '20%';
+                document.querySelector('.hotspot-bird-watching').style.top = '25%';
+                */
+                
+                console.log('Hotspots added to Image 4 (Things to Do). Click on them to navigate to specific activity images.');
+            }
+            
+            // Intersection Observer for animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            imageElements.forEach(container => {
+                observer.observe(container);
+            });
+            
+            function checkVisibility(element) {
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top <= windowHeight * 0.8) {
+                    element.classList.add('visible');
+                }
+            }
+            
+            // Update current image indicator
+            function updateCurrentImage() {
+                progressDots.forEach(dot => dot.classList.remove('active'));
+                imageElements.forEach(img => img.classList.remove('current'));
+                
+                if (progressDots[currentImageIndex]) {
+                    progressDots[currentImageIndex].classList.add('active');
+                    imageElements[currentImageIndex].classList.add('current');
+                    
+                    // Update navigation active state
+                    updateNavigationForImage(currentImageIndex);
+                }
+            }
+            
+            // Update navigation based on current image
+            function updateNavigationForImage(imageIndex) {
+                // Remove active class from all navigation items
+                document.querySelectorAll('.nav-link, .dropdown-toggle').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Check if current image corresponds to any navigation item
+                const imageNumber = imageIndex + 1; // Convert to 1-based
+                
+                // Map image numbers to navigation
+                const imageToNavMap = {
+                    4: 'things-to-do',       // Image 4
+                    13: 'tentative-schedule', // Image 13
+                    15: 'dos-donts',         // Image 15
+                    16: 'inclusions-exclusions' // Image 16
+                };
+                
+                // Find the corresponding nav item
+                let targetNav = null;
+                if (imageNumber in imageToNavMap) {
+                    const navType = imageToNavMap[imageNumber];
+                    
+                    if (navType === 'things-to-do') {
+                        targetNav = document.querySelector('.nav-link[data-target-image="3"]');
+                    } else if (navType === 'tentative-schedule') {
+                        targetNav = document.querySelector('.nav-link[data-target-image="12"]');
+                    } else if (navType === 'dos-donts') {
+                        targetNav = document.querySelector('.dropdown-item[data-target-image="14"]');
+                    } else if (navType === 'inclusions-exclusions') {
+                        targetNav = document.querySelector('.dropdown-item[data-target-image="15"]');
+                    }
+                }
+                
+                // If we found a nav item, activate it and its parent if applicable
+                if (targetNav) {
+                    targetNav.classList.add('active');
+                    
+                    // If it's inside a dropdown, activate the dropdown too
+                    const parentDropdown = targetNav.closest('.dropdown');
+                    if (parentDropdown) {
+                        parentDropdown.classList.add('active');
+                        parentDropdown.querySelector('.dropdown-toggle').classList.add('active');
+                    }
+                }
+            }
+            
+            // Scroll to specific image
+            function scrollToImage(index, smooth = true) {
+                if (index >= 0 && index < imageElements.length && !isScrolling) {
+                    isScrolling = true;
+                    currentImageIndex = index;
+                    
+                    navbar.classList.remove('hide');
+                    
+                    if (smooth) {
+                        imageElements[index].scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        
+                        imageElements[index].classList.add('visible');
+                        
+                        setTimeout(() => {
+                            isScrolling = false;
+                            updateCurrentImage();
+                        }, 800);
+                    } else {
+                        imageElements[index].scrollIntoView({
+                            behavior: 'auto',
+                            block: 'center'
+                        });
+                        imageElements[index].classList.add('visible');
+                        updateCurrentImage();
+                        isScrolling = false;
+                    }
+                }
+            }
+            
+            // Update current image on scroll
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    scrollHint.style.opacity = '0';
+                    scrollHint.style.transition = 'opacity 0.5s ease';
+                }
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const viewportHeight = window.innerHeight;
+                    const viewportCenter = window.scrollY + viewportHeight / 2;
+                    
+                    let closestImageIndex = 0;
+                    let closestDistance = Infinity;
+                    
+                    imageElements.forEach((item, index) => {
+                        const itemRect = item.getBoundingClientRect();
+                        const itemCenter = window.scrollY + itemRect.top + itemRect.height / 2;
+                        const distance = Math.abs(itemCenter - viewportCenter);
+                        
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            closestImageIndex = index;
+                        }
+                    });
+                    
+                    if (closestImageIndex !== currentImageIndex && !isScrolling) {
+                        currentImageIndex = closestImageIndex;
+                        updateCurrentImage();
+                        
+                        imageElements.forEach((item, index) => {
+                            const rect = item.getBoundingClientRect();
+                            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                                item.classList.add('visible');
+                            }
+                        });
+                    }
+                }, 150);
+            });
+            
+            // Update progress indicator
+            function updateProgressIndicator() {
+                progressDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentImageIndex);
+                });
+            }
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    navbar.classList.remove('hide');
+                    if (currentImageIndex > 0) {
+                        scrollToImage(currentImageIndex - 1, true);
+                    } else {
+                        scrollToImage(imageElements.length - 1, true);
+                    }
+                } else if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                    e.preventDefault();
+                    navbar.classList.remove('hide');
+                    if (currentImageIndex < imageElements.length - 1) {
+                        scrollToImage(currentImageIndex + 1, true);
+                    } else {
+                        scrollToImage(0, true);
+                    }
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    navbar.classList.remove('hide');
+                    scrollToImage(0, true);
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    navbar.classList.remove('hide');
+                    scrollToImage(imageElements.length - 1, true);
+                }
+            });
+            
+            // Initialize
+            updateProgressIndicator();
+            
+            // Auto-show first few images on load
+            setTimeout(() => {
+                for (let i = 0; i < Math.min(3, imageElements.length); i++) {
+                    imageElements[i].classList.add('visible');
+                }
+            }, 500);
+            
+            // Debug logging
+            console.log('=== Navigation Mapping (Updated) ===');
+            console.log('Things to do (nav) -> Image 4 (index 3)');
+            console.log('Tentative schedules (nav) -> Image 13 (index 12)');
+            console.log('Do\'s & Don\'ts (dropdown) -> Image 15 (index 14)');
+            console.log('Inclusions & Exclusions (dropdown) -> Image 16 (index 15)');
+            
+            console.log('\n=== Things to Do Hotspots Mapping ===');
+            console.log('Bird Watching -> Image 5 (index 4)');
+            console.log('National Park -> Image 6 (index 5)');
+            console.log('Nature Walks -> Image 7 (index 6)');
+            console.log('Boating -> Image 8 (index 7)');
+            console.log('Technical Session -> Image 9 (index 8)');
+            console.log('Astro-photography -> Image 10 (index 9)');
+            console.log('Heritage Walk -> Image 11 (index 10)');
+            
+            console.log('\nNote: Hotspot positions on Image 4 are approximate.');
+            console.log('Adjust CSS classes (.hotspot-*) to match your actual image layout.');
+        });
+    </script>
+</body>
+</html>
